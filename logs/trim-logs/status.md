@@ -1,7 +1,7 @@
 # TRIM reproduction — status
 
 Last updated: 2026-11-26 23:42 (stopped for the night)
-Current day: **Day 1 complete. Day 2 not started — waiting for user go-ahead.**
+Current day: **Day 1 complete. Day 2 not started — waiting for my go-ahead.**
 No benchmark process running (checked 23:41 with `pgrep -af 'bench\.py|run_gist|smoke_test|make_synthetic|time -v'`: none).
 
 ## Done
@@ -17,7 +17,7 @@ No benchmark process running (checked 23:41 with `pgrep -af 'bench\.py|run_gist|
 | Synthetic smoke test (tHNSW) | PASS, 11 rows (recall 1.0: data too easy, pipeline check only) | smoke/, DAY1.md |
 | GIST file size | 3933056096 bytes, matches | run.log |
 | DAY1.md (plain-language notes) | done | DAY1.md |
-| ~/CLAUDE.md (project rules) | created verbatim from user text | run.log |
+| ~/CLAUDE.md (project rules) | created word for word from my text | run.log |
 | Reproducibility package skeleton ~/trim-repro-package | done, with placeholders; smoke test via package passes | PACKAGE_STATUS.md, package-smoke-*.txt/csv |
 | Read-only package check | 0 FAIL, 9 PASS, 2 NOTE | PACKAGE_CHECK.md |
 
@@ -25,13 +25,13 @@ No benchmark process running (checked 23:41 with `pgrep -af 'bench\.py|run_gist|
 
 - **Day 2:** GIST benchmarks (tHNSW, tIVFPQ). No GIST index, result or log exists yet.
 - **Day 3:** paper numbers, COMPARISON.md, explaining differences.
-- **Days 4-5:** report draft; fill package placeholders; .gitignore additions; git init + first commit (no attribution). The push is the user's to run.
+- **Days 4-5:** report draft; fill package placeholders; .gitignore additions; git init + first commit (no attribution). I run the push myself.
 
-## Decisions needed from the user before Day 2
-1. **Baselines:** also run plain HNSW (`dco:"exact"`) and plain IVFPQ? Without them the paper's speedup claims can't be checked (COMPARISON.md rows 11 and 21).
-2. **Run location:** proposed: run from ~/trim-repro-package with overrides (below), so results land in its results/ and logs/.
+## Decisions I need to make before Day 2
+1. **Baselines:** should I also run plain HNSW (`dco:"exact"`, without TRIM) and plain IVFPQ? Without these runs, I cannot check the paper's speedup claims (COMPARISON.md rows 11 and 21).
+2. **Run location:** my plan is to run from ~/trim-repro-package with the overrides below, so the results land in its results/ and logs/.
 
-## Exact next step for Day 2 (only after the user says go)
+## Exact next step for Day 2 (only after I decide to go)
 
 ```bash
 cd ~/trim-repro-package
@@ -43,8 +43,8 @@ tail -f logs/gist_thnsw_*.out.txt       # 3. watch; next morning check logs/*.ti
 # 4. only after tHNSW has finished:
 scripts/run_gist_tivfpq.sh
 ```
-Record anything that breaks in run.log; if unrecoverable, write STOPPED.txt and stop.
+Record anything that breaks in run.log. If it cannot be fixed, write STOPPED.txt and stop.
 
 ## Known limits
 - tIVFPQfs cannot run on this CPU (needs AVX-512).
-- bench/trim.py uses os.cpu_count()-2 = 14 threads (unchanged); it only affects index loading, and queries are single-threaded.
+- bench/trim.py uses os.cpu_count()-2 = 14 threads (unchanged). This only affects index loading. Queries run on a single thread.

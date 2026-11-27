@@ -1,6 +1,6 @@
 # Environment
 
-Copied from the Day 1 log `~/trim-logs/run.log` (2026-11-26) only. **UNKNOWN** = not recorded in run.log.
+This file lists the machine and software I used. I copied every value from my Day 1 log, `~/trim-logs/run.log` (2026-11-26), and from nothing else. The package has a sanitized copy of that log in `logs/trim-logs/run.log`. **UNKNOWN** means run.log does not record the value.
 
 ## Machine
 
@@ -14,7 +14,11 @@ Copied from the Day 1 log `~/trim-logs/run.log` (2026-11-26) only. **UNKNOWN** =
 | Kernel | 6.6.87.2-microsoft-standard-WSL2 | `[2026-11-26 18:00:39] Environment: ...` |
 | Virtualisation | WSL2 (from kernel name) | same line |
 
+WSL2 is the Windows Subsystem for Linux: it runs a real Linux kernel inside Windows.
+
 ## System packages (apt)
+
+These are the Ubuntu packages, installed with `apt`.
 
 | Package | Version | run.log line |
 |---|---|---|
@@ -28,7 +32,11 @@ Copied from the Day 1 log `~/trim-logs/run.log` (2026-11-26) only. **UNKNOWN** =
 | libhdf5 (libhdf5-dev) | 1.10.10+repack-3.1ubuntu4 | same |
 | git, python3-venv, python3-dev, time | UNKNOWN | — (already installed, not logged) |
 
+A metapackage is an empty package that only pulls in the real one. Its version number is therefore not the exact compiler version.
+
 ## Python (virtual environment)
+
+These packages are installed in the project's virtual environment, a private Python setup separate from the system Python.
 
 | Package | Version | run.log line |
 |---|---|---|
@@ -50,3 +58,5 @@ Copied from the Day 1 log `~/trim-logs/run.log` (2026-11-26) only. **UNKNOWN** =
 | Upstream commit | 481811b7d0315b45d24fcfdeb05543f454f3b6da (2026-04-02, "Update README.md") | `[2026-11-26 18:00:51] Cloned commit` |
 | Libraries bundled in upstream (`include/versions.txt`) | hnswlib 0.8.0, faiss 1.11.0, eigen 3.4.0 | not in run.log (read from the clone) |
 | Local fix | fixes.patch (AVX-512 guard) | `[2026-11-26 18:09:09] Fix written to ~/trim-logs/fixes.patch` |
+
+"Bundled" means the upstream repository ships its own copy of these libraries.

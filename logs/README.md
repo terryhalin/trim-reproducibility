@@ -1,28 +1,30 @@
 # TRIM reproduction — Day 1 logs (sanitized)
 
-These are sanitized copies of the Day 1 working logs from a reproduction of
-"TRIM: Accelerating High-Dimensional Vector Similarity Search with Enhanced
-Triangle-Inequality-Based Pruning" (Song et al.), https://github.com/petrizhang/TRIM,
-for course CMKL 41-634.
+This folder holds my Day 1 working logs, in sanitized form: personal details
+such as my username and machine name are replaced (see "Sanitizing" below).
+The logs come from my reproduction of "TRIM: Accelerating High-Dimensional
+Vector Similarity Search with Enhanced Triangle-Inequality-Based Pruning"
+(Song et al.), https://github.com/petrizhang/TRIM, for course CMKL 41-634.
 
 ## Read this first
 
-- **Day 2 results are not yet run.** No GIST benchmark (tHNSW, tIVFPQ, or the
-  baselines) has been run. No GIST index, result or run log exists. The folder
-  `trim-repro-package-logs/` holds only a `.gitkeep`, which marks where the Day 2
-  logs will go.
-- **The smoke test used synthetic data, not GIST.** `trim-logs/scripts/make_synthetic.py`
-  generates the data: 10,000 × 960 random vectors and 100 queries, seed 42. The test
-  only checks that the build and the benchmark pipeline run end to end. Its recall
-  of 1.0 comes from the data being too easy. It is not a result and says nothing
-  about TRIM's performance on GIST.
-- Day 1 covered environment setup, the build, the Python bindings (with a
-  no-AVX-512 fix, `trim-logs/fixes.patch`) and the synthetic smoke test.
-  See `trim-logs/DAY1.md` and `trim-logs/status.md`.
+- **Day 2 results are not yet run.** I have not run any GIST benchmark (tHNSW,
+  tIVFPQ, or the baselines). No GIST index, result or run log exists. In this
+  package, the Day 2 logs will go in `logs/`, where `.gitkeep` (an empty
+  placeholder file) holds the folder until then.
+- **The smoke test used synthetic data, not GIST.** The script
+  `trim-logs/scripts/make_synthetic.py` generates the data: 10,000 × 960 random
+  vectors and 100 queries, with seed 42. The test only checks that the build and
+  the benchmark pipeline run from start to finish. Its recall of 1.0 is only
+  because the data is too easy. It is not a result, and it says nothing about
+  how TRIM performs on GIST.
+- On Day 1 I set up the environment, built the code, built the Python bindings
+  (with a fix for CPUs without AVX-512, `trim-logs/fixes.patch`) and ran the
+  synthetic smoke test. See `trim-logs/DAY1.md` and `trim-logs/status.md`.
 
 ## Files not included in this copy
 
-The logs mention these files, but they are not in this copy.
+The logs mention these files, but they are not in this copy. The table says what each one is and, where possible, how to recreate it.
 
 | File named in the logs | What it is | How to recreate it |
 |---|---|---|
@@ -32,7 +34,7 @@ The logs mention these files, but they are not in this copy.
 | `~/trim-logs/smoke/tmp/index/syn_pq8x120.bin` | PQ index built on the synthetic data (2.2 MB) | Built by the same `smoke_thnsw.sh` run (step 3) |
 | `C:\trim-reproducibility\logs\wsl-setup-log.md` | Windows-side notes on the WSL2 and Ubuntu setup, cited in `status.md` | Cannot be recreated from this copy. It is a manual setup record kept outside both log folders. `run.log` line 2 records the resulting environment (kernel, `nproc=16`, `mem=23Gi`) |
 
-Recreate steps. They assume upstream is cloned at `$HOME/trim` with the venv from `run.log` Steps 2–3b. Set `PUB` to the folder holding this README:
+To recreate them, run the steps below. They assume you cloned upstream to `$HOME/trim` and created the venv as in `run.log` Steps 2–3b. First set `PUB` to the folder that holds this README:
 
 ```bash
 PUB=/path/to/this/folder
@@ -51,8 +53,10 @@ bash "$PUB/trim-logs/scripts/smoke_thnsw.sh"
 
 ## Sanitizing
 
-The home directory is shown as `$HOME` in commands, compiler flags and tool output,
-so those lines still work when pasted into a shell. In plain prose it is shown as `~`.
-The machine name is shown as `HOST` and the username as `USER`. Large binary files
-(the synthetic dataset, index files, the patched source tree and its build output)
-are left out. Details are in `SANITIZE_REPORT.md`.
+To sanitize the logs, I replaced personal details with neutral names:
+- The home folder is `$HOME` in commands, compiler flags and tool output, so those
+  lines still work if you paste them into a shell. In plain text it is `~`.
+- The machine name is `HOST` and the username is `USER`.
+
+I also left out large binary files: the synthetic dataset, the index files, and
+the patched source tree with its build output. `SANITIZE_REPORT.md` has the details.
