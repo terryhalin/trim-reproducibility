@@ -1,0 +1,86 @@
+[2026-11-26 18:00:39] === Day 1 start. Created ~/trim-logs and ~/trim-logs/scripts ===
+[2026-11-26 18:00:39] Environment: USER@HOST, 6.6.87.2-microsoft-standard-WSL2, nproc=16, mem=23Gi
+[2026-11-26 18:00:49] Step 1 done: status.md created
+[2026-11-26 18:00:49] Step 2: git clone --depth 1 https://github.com/petrizhang/TRIM.git ~/trim
+Cloning into '$HOME/trim'...
+[2026-11-26 18:00:51] Cloned commit: 481811b7d0315b45d24fcfdeb05543f454f3b6da (2026-04-02 13:30:02 +0800 Update README.md)
+[2026-11-26 18:01:31] Step 3a: apt-get update && apt-get install -y build-essential cmake libopenblas-dev liblapack-dev libhdf5-dev (run as root via 'wsl -u root' instead of sudo)
+update exit=0
+install exit=0
+[2026-11-26 18:02:09] apt package versions:
+  build-essential 12.10ubuntu1
+  cmake 3.28.3-1build7
+  g++ 4:13.2.0-7ubuntu1
+  gcc 4:13.2.0-7ubuntu1
+  libhdf5-dev 1.10.10+repack-3.1ubuntu4
+  liblapack-dev 3.12.0-3build1.1
+  libopenblas-dev 0.3.26+ds-1ubuntu0.1
+  make 4.3-4.1build2
+[2026-11-26 18:02:17] Step 3b: python3 -m venv ~/trim/.venv (PEP 668 blocks system-wide pip on Ubuntu 24.04; .venv is in upstream .gitignore)
+[2026-11-26 18:02:19] pip install --upgrade pip; pip install numpy pandas scipy h5py faiss-cpu hnswlib pybind11 setuptools (setuptools added: not in README, needed by setup.py on Python 3.12)
+pip exit=0
+[2026-11-26 18:02:57] Python package versions:
+  Python 3.12.3
+  faiss-cpu       1.16.0
+  h5py            3.16.0
+  hnswlib         0.8.0
+  numpy           2.5.5
+  pandas          3.1.1
+  pip             26.3
+  pybind11        3.1.0
+  scipy           1.18.1
+  setuptools      84.2.1
+  import OK; faiss 1.16.0 | h5py built against HDF5 2.0.0
+[2026-11-26 18:03:06] Step 3c: cd ~/trim/build && cmake .. (output: ~/trim-logs/cmake.txt)
+[2026-11-26 18:03:10] cmake exit=0
+[2026-11-26 18:03:10] make -j16 (README says 'make -j'; 16 per user's thread rule) (output: ~/trim-logs/make.txt)
+[2026-11-26 18:03:47] make exit=0, took 37s
+[2026-11-26 18:03:56] Created ~/CLAUDE.md with user-supplied content (verbatim)
+[2026-11-26 18:04:07] README deviation: README says 'cd python' from inside build/, but python/ is at repo root; ran from ~/trim/python
+[2026-11-26 18:04:07] Step 3d: python setup.py build_ext --inplace (output: ~/trim-logs/bindings-build.txt)
+[2026-11-26 18:04:19] build_ext exit=1, took 12s
+[2026-11-26 18:04:19] Step 3e: python setup.py install (output: ~/trim-logs/bindings-install.txt)
+[2026-11-26 18:04:29] setup.py install exit=1
+[2026-11-26 18:09:09] Step 3d FAILED: build_ext error tIVFPQfs.h:120 'L2SqrSIMD16ExtAVX512' is not a member of 'hnswlib' (CPU has no AVX-512). setup.py install also failed (same error). See ~/trim-logs/bindings-build.txt, bindings-install.txt
+[2026-11-26 18:09:09] Fix written to ~/trim-logs/fixes.patch (guards tIVFPQfs with USE_AVX512 in trim-forwards.h). Tested in scratch copy ~/trim-logs/patch-test: build exit 0, trimlib imports. NOT applied to ~/trim — waiting for user decision.
+[2026-11-26 18:09:35] Step 4a: python ~/trim-logs/scripts/make_synthetic.py ~/trim-logs/smoke/synthetic-960.hdf5 (n=10000, nq=100, d=960, seed=42)
+  neighbors      shape=(100, 100) dtype=int32
+  neighbors_001  shape=(100, 100) dtype=int32
+  neighbors_01   shape=(100, 1000) dtype=int32
+  ranges         shape=(100, 2) dtype=float32
+  test           shape=(100, 960) dtype=float32
+  train          shape=(10000, 960) dtype=float32
+-rw-r--r-- 1 USER USER 39268896 Nov 26 18:09 $HOME/trim-logs/smoke/synthetic-960.hdf5
+[2026-11-26 18:09:36] Step 5: GIST size check
+3933056096 bytes  /mnt/c/trim-reproducibility/data/gist-960.hdf5
+[2026-11-26 18:09:36] GIST size matches 3933056096 bytes
+[2026-11-26 18:09:43] status.md updated (item 3 blocked on patch decision)
+[2026-11-26 18:21:50] User chose: keep ~/trim pristine; build trimlib from a patched copy at ~/trim-logs/patched-src and use PYTHONPATH
+[2026-11-26 18:21:50] Copied include/ and python/ from ~/trim @ 481811b via git archive
+[2026-11-26 18:21:50] git apply ~/trim-logs/fixes.patch in ~/trim-logs/patched-src: OK
+[2026-11-26 18:21:50] python setup.py build_ext --inplace in ~/trim-logs/patched-src/python (output: ~/trim-logs/bindings-build-patched.txt)
+[2026-11-26 18:23:59] patched build_ext exit=0, took 129s
+[2026-11-26 18:23:59] README step 'python setup.py install' skipped on purpose: module is used via PYTHONPATH (user choice)
+import OK from $HOME/trim-logs/patched-src/python/trimlib.cpython-312-x86_64-linux-gnu.so
+[2026-11-26 18:24:00] Removed scratch test copy ~/trim-logs/patch-test (superseded by patched-src)
+[2026-11-26 18:24:25] Removed leftovers of the failed unpatched build: ~/trim/python/tmp (setup.py flag-probe .o files) and ~/trim/python/build (intermediate build dir)
+  upstream status: !! .venv/
+  upstream status: !! build/
+[2026-11-26 18:24:25] Step 4b: smoke test ~/trim-logs/scripts/smoke_thnsw.sh (output: ~/trim-logs/smoke/smoke-thnsw-output.txt)
+[2026-11-26 18:24:25] Note: bench/trim.py sets num_threads = os.cpu_count()-2 = 14 here (left unchanged). It only sizes the thread pool for PQ reconstruction-error precomputation at index load; queries run single-threaded.
+[2026-11-26 18:24:30] smoke test exit=0, took 5s
+[2026-11-26 18:25:57] Smoke test PASS: CSV ~/trim-logs/smoke/results/QPSDCRecall_SYN_tHNSW_KNN_k10.csv (11 rows). Recall 1.0 at all ef: synthetic data too easy, pipeline check only.
+[2026-11-26 18:25:57] Note: first attempt to write DAY1.md failed (Git Bash quoting error, nothing written); rewritten via the file tool.
+[2026-11-26 18:25:57] DAY1.md written; status.md updated. === Day 1 complete; stopping, waiting for user ===
+[2026-11-26 18:47:56] === Reproducibility package skeleton: start ===
+[2026-11-26 18:47:57] Tested clone-by-commit (git init; git fetch --depth 1 origin 481811b7...; git checkout --detach FETCH_HEAD): HEAD=481811b7d0315b45d24fcfdeb05543f454f3b6da; fixes.patch git apply --check OK
+[2026-11-26 18:47:57] Removed ~/trim-logs/clone-test
+[2026-11-26 18:49:54] Package: wrote README.md, ENVIRONMENT.md, COMPARISON.md, NOTICE.md, .gitignore, scripts/{common.sh,smoke_test.sh,run_gist_thnsw.sh,run_gist_tivfpq.sh}, results/.gitkeep, logs/.gitkeep; copied fixes.patch, LICENSE (git show 481811b7:LICENSE), scripts/make_synthetic.py
+[2026-11-26 18:49:59] Package check: scripts/smoke_test.sh with TRIM_DIR=~/trim VENV_DIR=~/trim/.venv TRIMLIB_DIR=~/trim-logs/patched-src/python -> exit=0; output ~/trim-logs/package-smoke-test.txt
+[2026-11-26 18:49:59] Removed package smoke/ output after copying output + CSV to ~/trim-logs/package-smoke-*
+[2026-11-26 18:49:59] Package check: DRY_RUN of both GIST scripts printed commands (no run). Missing-GIST guard refused as expected.
+[2026-11-26 18:50:30] chmod 644 scripts/make_synthetic.py (no shebang; called via python3). PACKAGE_STATUS.md written; status.md updated. === Package skeleton done; stopping ===
+[2026-11-26 20:16:34] Read-only package check done: 0 FAIL, 9 PASS, 2 NOTE; package fingerprint unchanged (2e620a94...). Report: ~/trim-logs/PACKAGE_CHECK.md
+[2026-11-26 23:42:41] Stopped for the night. status.md updated with Day 2 next step. No benchmark running. === End of 2026-11-26 ===
+2026-11-27 15:41:20 ~/CLAUDE.md: added rule (user text, verbatim): never commit/push ~/CLAUDE.md or ~/trim-logs/, no git init in ~ or ~/trim-logs/, only approved sanitized copies from ~/trim-logs-public/ may enter the package.
+[2026-11-27 15:48:12] Sanitized public copy of Day 1 logs: sources ~/trim-logs/ and ~/trim-repro-package/logs/ -> destination ~/trim-logs-public/ (trim-logs/, trim-repro-package-logs/). Replacements per SANITIZE_REPORT.md: 35 total = home path 30 (27 -> $HOME in commands/flags/tool output, 3 -> ~ in prose), hostname -> HOST 1, username -> USER 4, email 0, IPv4 0. Excluded: patched-src/, smoke/synthetic-960.hdf5, smoke/tmp/index/*.bin, smoke/tmp/index/*.empty. Originals in ~/trim-logs/ and ~/trim-repro-package/logs/ were not edited (this run.log entry is the only change). Report: ~/trim-logs-public/SANITIZE_REPORT.md

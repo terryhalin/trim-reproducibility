@@ -1,0 +1,71 @@
+running build_ext
+x86_64-linux-gnu-g++ -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -I$HOME/trim/.venv/include -I/usr/include/python3.12 -c /tmp/tmpq43i0m2m.cc -o tmp/tmpq43i0m2m.o -std=c++17
+x86_64-linux-gnu-g++ -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -I$HOME/trim/.venv/include -I/usr/include/python3.12 -c /tmp/tmpr9_kppdn.cc -o tmp/tmpr9_kppdn.o -fvisibility=hidden
+building 'trimlib' extension
+x86_64-linux-gnu-g++ -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -I$HOME/trim/.venv/lib/python3.12/site-packages/pybind11/include -I$HOME/trim/.venv/lib/python3.12/site-packages/numpy/_core/include -I../include -I$HOME/trim/.venv/include -I/usr/include/python3.12 -c ./bindings.cc -o build/temp.linux-x86_64-cpython-312/bindings.o -O3 -march=native -Wno-sign-compare -Wno-unknown-pragmas -DVERSION_INFO=\"0.0.1\" -std=c++17 -fvisibility=hidden
+In file included from ../include/trim/trim-forwards.h:40,
+                 from ../include/trim/trim.h:22,
+                 from ./bindings.cc:8:
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h: In instantiation of ‘trim::detail::HNSWSearcher<TDco>::ResultQueue trim::detail::HNSWSearcher<TDco>::_ann_search_level0_batch8_Gamma0(tableint, dist_t, size_t, size_t) const [with TDco = trim::detail::TrimDCO<faiss::PQDecoder8, false>; ResultQueue = std::priority_queue<std::pair<float, unsigned int>, std::vector<std::pair<float, unsigned int>, std::allocator<std::pair<float, unsigned int> > >, hnswlib::HierarchicalNSW<float>::CompareByFirst>; tableint = unsigned int; dist_t = float; size_t = long unsigned int]’:
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:214:26:   required from ‘void trim::detail::HNSWSearcher<TDco>::_ann_search(const void*, size_t, int*) const [with TDco = trim::detail::TrimDCO<faiss::PQDecoder8, false>; size_t = long unsigned int]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:134:69:   required from ‘void trim::detail::HNSWSearcher<TDco>::ann_search(const float*, int, int*) const [with TDco = trim::detail::TrimDCO<faiss::PQDecoder8, false>]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:134:8:   required from here
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:557:9: warning: unused variable ‘n_batched’ [-Wunused-variable]
+  557 |     int n_batched = 0;
+      |         ^~~~~~~~~
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h: In instantiation of ‘trim::detail::HNSWSearcher<TDco>::ResultQueue trim::detail::HNSWSearcher<TDco>::_range_search_level0_batch8_Gamma0(tableint, dist_t, dist_t, size_t) const [with TDco = trim::detail::TrimDCO<faiss::PQDecoder8, false>; ResultQueue = std::priority_queue<std::pair<float, unsigned int>, std::vector<std::pair<float, unsigned int>, std::allocator<std::pair<float, unsigned int> > >, hnswlib::HierarchicalNSW<float>::CompareByFirst>; tableint = unsigned int; dist_t = float; size_t = long unsigned int]’:
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:637:26:   required from ‘void trim::detail::HNSWSearcher<TDco>::_range_search(const void*, dist_t, std::vector<int>&) const [with TDco = trim::detail::TrimDCO<faiss::PQDecoder8, false>; dist_t = float]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:136:93:   required from ‘void trim::detail::HNSWSearcher<TDco>::range_search(const float*, float, std::vector<int>&) const [with TDco = trim::detail::TrimDCO<faiss::PQDecoder8, false>]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:136:8:   required from here
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:965:9: warning: unused variable ‘n_batched’ [-Wunused-variable]
+  965 |     int n_batched = 0;
+      |         ^~~~~~~~~
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h: In instantiation of ‘trim::detail::HNSWSearcher<TDco>::ResultQueue trim::detail::HNSWSearcher<TDco>::_ann_search_level0_batch8_Gamma0(tableint, dist_t, size_t, size_t) const [with TDco = trim::detail::TrimDCO<faiss::PQDecoder8, true>; ResultQueue = std::priority_queue<std::pair<float, unsigned int>, std::vector<std::pair<float, unsigned int>, std::allocator<std::pair<float, unsigned int> > >, hnswlib::HierarchicalNSW<float>::CompareByFirst>; tableint = unsigned int; dist_t = float; size_t = long unsigned int]’:
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:214:26:   required from ‘void trim::detail::HNSWSearcher<TDco>::_ann_search(const void*, size_t, int*) const [with TDco = trim::detail::TrimDCO<faiss::PQDecoder8, true>; size_t = long unsigned int]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:134:69:   required from ‘void trim::detail::HNSWSearcher<TDco>::ann_search(const float*, int, int*) const [with TDco = trim::detail::TrimDCO<faiss::PQDecoder8, true>]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:134:8:   required from here
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:557:9: warning: unused variable ‘n_batched’ [-Wunused-variable]
+  557 |     int n_batched = 0;
+      |         ^~~~~~~~~
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h: In instantiation of ‘trim::detail::HNSWSearcher<TDco>::ResultQueue trim::detail::HNSWSearcher<TDco>::_range_search_level0_batch8_Gamma0(tableint, dist_t, dist_t, size_t) const [with TDco = trim::detail::TrimDCO<faiss::PQDecoder8, true>; ResultQueue = std::priority_queue<std::pair<float, unsigned int>, std::vector<std::pair<float, unsigned int>, std::allocator<std::pair<float, unsigned int> > >, hnswlib::HierarchicalNSW<float>::CompareByFirst>; tableint = unsigned int; dist_t = float; size_t = long unsigned int]’:
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:637:26:   required from ‘void trim::detail::HNSWSearcher<TDco>::_range_search(const void*, dist_t, std::vector<int>&) const [with TDco = trim::detail::TrimDCO<faiss::PQDecoder8, true>; dist_t = float]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:136:93:   required from ‘void trim::detail::HNSWSearcher<TDco>::range_search(const float*, float, std::vector<int>&) const [with TDco = trim::detail::TrimDCO<faiss::PQDecoder8, true>]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:136:8:   required from here
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:965:9: warning: unused variable ‘n_batched’ [-Wunused-variable]
+  965 |     int n_batched = 0;
+      |         ^~~~~~~~~
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h: In instantiation of ‘trim::detail::HNSWSearcher<TDco>::ResultQueue trim::detail::HNSWSearcher<TDco>::_ann_search_level0_batch8_Gamma0(tableint, dist_t, size_t, size_t) const [with TDco = trim::detail::ExactDCO<>; ResultQueue = std::priority_queue<std::pair<float, unsigned int>, std::vector<std::pair<float, unsigned int>, std::allocator<std::pair<float, unsigned int> > >, hnswlib::HierarchicalNSW<float>::CompareByFirst>; tableint = unsigned int; dist_t = float; size_t = long unsigned int]’:
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:214:26:   required from ‘void trim::detail::HNSWSearcher<TDco>::_ann_search(const void*, size_t, int*) const [with TDco = trim::detail::ExactDCO<>; size_t = long unsigned int]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:134:69:   required from ‘void trim::detail::HNSWSearcher<TDco>::ann_search(const float*, int, int*) const [with TDco = trim::detail::ExactDCO<>]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:134:8:   required from here
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:557:9: warning: unused variable ‘n_batched’ [-Wunused-variable]
+  557 |     int n_batched = 0;
+      |         ^~~~~~~~~
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h: In instantiation of ‘trim::detail::HNSWSearcher<TDco>::ResultQueue trim::detail::HNSWSearcher<TDco>::_range_search_level0_batch8_Gamma0(tableint, dist_t, dist_t, size_t) const [with TDco = trim::detail::ExactDCO<>; ResultQueue = std::priority_queue<std::pair<float, unsigned int>, std::vector<std::pair<float, unsigned int>, std::allocator<std::pair<float, unsigned int> > >, hnswlib::HierarchicalNSW<float>::CompareByFirst>; tableint = unsigned int; dist_t = float; size_t = long unsigned int]’:
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:637:26:   required from ‘void trim::detail::HNSWSearcher<TDco>::_range_search(const void*, dist_t, std::vector<int>&) const [with TDco = trim::detail::ExactDCO<>; dist_t = float]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:136:93:   required from ‘void trim::detail::HNSWSearcher<TDco>::range_search(const float*, float, std::vector<int>&) const [with TDco = trim::detail::ExactDCO<>]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:136:8:   required from here
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:965:9: warning: unused variable ‘n_batched’ [-Wunused-variable]
+  965 |     int n_batched = 0;
+      |         ^~~~~~~~~
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h: In instantiation of ‘trim::detail::HNSWSearcher<TDco>::ResultQueue trim::detail::HNSWSearcher<TDco>::_ann_search_level0_batch8_Gamma0(tableint, dist_t, size_t, size_t) const [with TDco = trim::detail::ExactDCO<true>; ResultQueue = std::priority_queue<std::pair<float, unsigned int>, std::vector<std::pair<float, unsigned int>, std::allocator<std::pair<float, unsigned int> > >, hnswlib::HierarchicalNSW<float>::CompareByFirst>; tableint = unsigned int; dist_t = float; size_t = long unsigned int]’:
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:214:26:   required from ‘void trim::detail::HNSWSearcher<TDco>::_ann_search(const void*, size_t, int*) const [with TDco = trim::detail::ExactDCO<true>; size_t = long unsigned int]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:134:69:   required from ‘void trim::detail::HNSWSearcher<TDco>::ann_search(const float*, int, int*) const [with TDco = trim::detail::ExactDCO<true>]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:134:8:   required from here
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:557:9: warning: unused variable ‘n_batched’ [-Wunused-variable]
+  557 |     int n_batched = 0;
+      |         ^~~~~~~~~
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h: In instantiation of ‘trim::detail::HNSWSearcher<TDco>::ResultQueue trim::detail::HNSWSearcher<TDco>::_range_search_level0_batch8_Gamma0(tableint, dist_t, dist_t, size_t) const [with TDco = trim::detail::ExactDCO<true>; ResultQueue = std::priority_queue<std::pair<float, unsigned int>, std::vector<std::pair<float, unsigned int>, std::allocator<std::pair<float, unsigned int> > >, hnswlib::HierarchicalNSW<float>::CompareByFirst>; tableint = unsigned int; dist_t = float; size_t = long unsigned int]’:
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:637:26:   required from ‘void trim::detail::HNSWSearcher<TDco>::_range_search(const void*, dist_t, std::vector<int>&) const [with TDco = trim::detail::ExactDCO<true>; dist_t = float]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:136:93:   required from ‘void trim::detail::HNSWSearcher<TDco>::range_search(const float*, float, std::vector<int>&) const [with TDco = trim::detail::ExactDCO<true>]’
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:136:8:   required from here
+../include/trim/detail/searcher/hnsw/hnsw_searcher.h:965:9: warning: unused variable ‘n_batched’ [-Wunused-variable]
+  965 |     int n_batched = 0;
+      |         ^~~~~~~~~
+In file included from ../include/trim/detail/io/read_hnswlib.h:24,
+                 from ../include/trim/trim-forwards.h:38:
+../include/hnswlib/hnswlib.h:89:13: warning: ‘bool AVX512Capable()’ defined but not used [-Wunused-function]
+   89 | static bool AVX512Capable() {
+      |             ^~~~~~~~~~~~~
+x86_64-linux-gnu-g++ -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -shared -Wl,-O1 -Wl,-Bsymbolic-functions build/temp.linux-x86_64-cpython-312/bindings.o -L/usr/lib/x86_64-linux-gnu -o build/lib.linux-x86_64-cpython-312/trimlib.cpython-312-x86_64-linux-gnu.so -pthread
+copying build/lib.linux-x86_64-cpython-312/trimlib.cpython-312-x86_64-linux-gnu.so -> 

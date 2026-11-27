@@ -1,0 +1,2 @@
+# Day 2 run logs go here: logs/gist_<method>_<time>.out.txt (bench.py output), .time.txt (/usr/bin/time -v),
+# .env.txt (versions/commit/CPU at start), .cmd.txt (exact command) and .pid (written by scripts/run_gist_*.sh).

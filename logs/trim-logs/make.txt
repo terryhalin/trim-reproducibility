@@ -1,0 +1,21 @@
+[  7%] Building CXX object CMakeFiles/faiss_blas.dir/src/faiss_blas.cc.o
+[ 14%] Linking CXX static library libfaiss_blas.a
+[ 14%] Built target faiss_blas
+[ 21%] Building CXX object CMakeFiles/faiss.dir/src/faiss.cc.o
+[ 28%] Linking CXX static library libfaiss.a
+[ 28%] Built target faiss
+[ 35%] Building CXX object CMakeFiles/index_pq_example.dir/examples/index_pq_example.cc.o
+[ 42%] Building CXX object CMakeFiles/pq.dir/examples/pq.cc.o
+[ 57%] Building CXX object CMakeFiles/sgemm.dir/examples/sgemm.cc.o
+[ 57%] Building CXX object CMakeFiles/hnsw.dir/examples/hnsw.cc.o
+[ 64%] Building CXX object CMakeFiles/ivfpqfs.dir/examples/ivfpqfs.cc.o
+[ 71%] Linking CXX executable sgemm
+[ 71%] Built target sgemm
+[ 78%] Linking CXX executable index_pq_example
+[ 78%] Built target index_pq_example
+[ 85%] Linking CXX executable ivfpqfs
+[ 85%] Built target ivfpqfs
+[ 92%] Linking CXX executable hnsw
+[100%] Linking CXX executable pq
+[100%] Built target hnsw
+[100%] Built target pq

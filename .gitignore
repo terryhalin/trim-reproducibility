@@ -1,0 +1,12 @@
+# Large or machine-specific files that must never be committed
+TRIM/
+.venv/
+data/
+/tmp/
+/smoke/
+*.hdf5
+*.bin
+*.empty
+*.so
+build/
+__pycache__/

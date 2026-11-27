@@ -1,0 +1,2 @@
+# Day 2 results go here: results/QPSDCRecall_GIST_tHNSW_KNN_k10.csv and results/QPSDCRecall_GIST_tIVFPQ_KNN_k10.csv
+# (written by scripts/run_gist_thnsw.sh and scripts/run_gist_tivfpq.sh).

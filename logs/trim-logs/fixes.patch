@@ -1,0 +1,34 @@
+# fixes.patch — TRIM reproduction (CMKL 41-634). Applies to petrizhang/TRIM @ 481811b7d0315b45d24fcfdeb05543f454f3b6da
+# Fix 1: python bindings fail to compile on CPUs without AVX-512 (e.g. Intel Core Ultra 7 155H).
+#   Error: include/trim/detail/index/tIVFPQfs.h:120: 'L2SqrSIMD16ExtAVX512' is not a member of 'hnswlib'
+#   Cause: tIVFPQfs (fast-scan IVFPQ) is written in AVX-512 only; setup.py uses -march=native, so __AVX512F__ is undefined.
+#   Fix: compile tIVFPQfs only when USE_AVX512 is defined; otherwise creating an ivfpqfs searcher throws. tHNSW/tIVFPQ code unchanged.
+diff --git a/include/trim/trim-forwards.h b/include/trim/trim-forwards.h
+index 8748c33..62fc001 100644
+--- a/include/trim/trim-forwards.h
++++ b/include/trim/trim-forwards.h
+@@ -39,7 +39,10 @@
+ #include "trim/detail/io/read_pq.h"
+ #include "trim/detail/searcher/hnsw/hnsw_searcher.h"
+ #include "trim/detail/searcher/ivfpq_searcher.h"
++// [repro fix] tIVFPQfs is AVX-512 only; skip it on CPUs without AVX-512
++#ifdef USE_AVX512
+ #include "trim/detail/searcher/ivfpqfs_searcher.h"
++#endif
+ #include "trim/util/thread_pool.h"
+ 
+ namespace trim {
+@@ -129,8 +132,13 @@ std::unique_ptr<ISearcher> create_ivfpq_searcher(const Dict& options) {
+ std::unique_ptr<ISearcher> create_ivfpqfs_searcher(const Dict& options) {
+   std::string index_path = options.require<std::string>(constants::T_IVFPQFS_INDEX_PATH);
+   // std::string data_path = options.require<std::string>(constants::DATA_PATH);
++#ifdef USE_AVX512
+   std::unique_ptr<ISearcher> searcher = std::make_unique<IVFPQFastScanSearcher>(index_path.c_str());
+   return searcher;
++#else
++  (void)index_path;
++  T_THROW_MSG("tIVFPQfs requires AVX-512; this build was compiled without AVX-512 support");
++#endif
+ }
+ 
+ }  // namespace detail
